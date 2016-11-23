@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://gitlab.com/imeyer/randinner/issues"
   },
-  "homepage": "https://gitlab.com/imeyer/randinner#README"
+  "homepage": "https://gitlab.com/imeyer/randinner#README",
+  "dependencies": {
+    "express": "^4.14.0"
+  }
 }
