@@ -2,6 +2,10 @@ var express = require('express');
 // var request = require('request');
 var app = express();
 
+var bodyParser = require('body-parser');
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
 app.all('*', function(req, res, next) {
   res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Methods', 'GET, POST, DELETE, OPTIONS');
@@ -13,7 +17,8 @@ app.post('/', function (req, res) {
   // var queryTerm = req.params.query_term;
   res.setHeader('Content-Type', 'application/json');
   // res.end(queryTerm);
-  console.log(req);
+  console.log(req.body);
+  res.end(req.body);
 })
 
 
