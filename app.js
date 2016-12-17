@@ -22,9 +22,13 @@ app.post('/', function (req, res) {
   var cuisine = text[0];
   var location = text.slice(1,text.length).join(" ");
 
-  res.end("You want to eat " + cuisine + " in or around the location: " + location);
-})
+  response_json = {
+    "response_type": "in_channel",
+    "text": "You want to eat " + cuisine + " in or around the location: " + location
+  }
 
+  res.end(response_json);
+})
 
 var server = app.listen(process.env.PORT, function () {
   var host = server.address().address
