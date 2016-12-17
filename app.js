@@ -22,10 +22,10 @@ app.post('/', function (req, res) {
   var cuisine = text[0];
   var location = text.slice(1,text.length).join(" ");
 
-  response_json = {
+  response_json = JSON.stringify({
     "response_type": "in_channel",
     "text": "You want to eat " + cuisine + " in or around the location: " + location
-  }
+  })
 
   res.end(response_json);
 })
