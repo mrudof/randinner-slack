@@ -34,7 +34,7 @@ app.post('/', function (req, res) {
   var name, url, rating;
 
   yelp.search({ term: `${cuisine}`, location: `${location}`, sort: '2', limit: '40', radius_filter: '1609.34' })
-    .then(function (data) {
+    .then((data) => {
     var businesses = data.businesses;
     var rand = businesses[Math.floor(Math.random() * businesses.length)];
     name = rand.name;
@@ -42,10 +42,10 @@ app.post('/', function (req, res) {
     rating = rand.rating;
     console.log(name)
   })
-  .catch(function (err) {
+  .catch((err) => {
     console.error(err);
   });
-
+  console.log("second name:" name);
   response_json = JSON.stringify({
     "response_type": "in_channel",
     "text": "You want to eat " + cuisine + " in or around the location: " + location
