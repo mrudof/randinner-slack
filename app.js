@@ -7,7 +7,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 
 var Yelp = require('yelp');
-
 var yelp = new Yelp({
   consumer_key: process.env.YELP_CONSUMER_KEY,
   consumer_secret: process.env.YELP_CONSUMER_SECRET,
@@ -31,10 +30,13 @@ app.post('/', function (req, res) {
   var text = slackBody.text.split(" ");
   var cuisine = text[0];
   var location = text.slice(1,text.length).join(" ");
-  var name, url, rating;
 
-  yelp.search({ term: `${cuisine}`, location: `${location}`, sort: '2', limit: '40', radius_filter: '1609.34' })
+
+  res.end(response_json);
+  next();
+}, yelp.search({ term: `${cuisine}`, location: `${location}`, sort: '2', limit: '40', radius_filter: '1609.34' })
     .then((data) => {
+    var name, url, rating;
     var businesses = data.businesses;
     var rand = businesses[Math.floor(Math.random() * businesses.length)];
     name = rand.name;
@@ -44,15 +46,13 @@ app.post('/', function (req, res) {
     console.log("second name:" + name);
     response_json = JSON.stringify({
       "response_type": "in_channel",
-      "text": "You want to eat " + cuisine + " in or around the location: " + location + "\nWhy not try: " + name + "?" + url
+      "text": "You want to eat " + cuisine + " in or around the location: " + location  + "\nWhy not try: " + name + "?" + url
     })
   })
   .catch((err) => {
     console.error(err);
   });
-
-  res.end(response_json);
-})
+);
 
 var server = app.listen(process.env.PORT, function () {
   var host = server.address().address
