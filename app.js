@@ -41,16 +41,15 @@ app.post('/', function (req, res) {
     url = rand.url;
     rating = rand.rating;
     console.log(name)
+    console.log("second name:" + name);
+    response_json = JSON.stringify({
+      "response_type": "in_channel",
+      "text": "You want to eat " + cuisine + " in or around the location: " + location + "\nWhy not try: " + name + "?" + url
+    })
   })
   .catch((err) => {
     console.error(err);
   });
-  console.log("second name:" + name);
-  response_json = JSON.stringify({
-    "response_type": "in_channel",
-    "text": "You want to eat " + cuisine + " in or around the location: " + location
-    + "\nWhy not try: " + name + "?" + url
-  })
 
   res.end(response_json);
 })
