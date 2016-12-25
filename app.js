@@ -31,6 +31,7 @@ app.post('/', function (req, res) {
   var text = slackBody.text.split(" ");
   var cuisine = text[0];
   var location = text.slice(1,text.length).join(" ");
+  var name, url, rating;
 
   yelp.search({ term: `${cuisine}`, location: `${location}`, sort: '2', limit: '40', radius_filter: '1609.34' })
     .then(function (data) {
