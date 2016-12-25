@@ -37,9 +37,9 @@ app.post('/', function (req, res) {
     .then(function (data) {
     var businesses = data.businesses;
     var rand = businesses[Math.floor(Math.random() * businesses.length)];
-    var name = rand.name;
-    var url = rand.url;
-    var rating = rand.rating;
+    name = rand.name;
+    url = rand.url;
+    rating = rand.rating;
   })
   .catch(function (err) {
     console.error(err);
