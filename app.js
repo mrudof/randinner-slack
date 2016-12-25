@@ -40,6 +40,7 @@ app.post('/', function (req, res) {
     name = rand.name;
     url = rand.url;
     rating = rand.rating;
+    console.log(name)
   })
   .catch(function (err) {
     console.error(err);
