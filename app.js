@@ -28,8 +28,8 @@ app.post('/', function (req, res) {
   console.log(slackBody);
 
   var text = slackBody.text.split(" ");
-  var cuisine = text[0];
-  var location = text.slice(1,text.length).join(" ");
+  var cuisine = text.slice(0,text.length - 2).join(" ");
+  var location = text[text.length + 1];
   var name, url, rating;
 
   yelp.search({ term: `${cuisine}`, location: `${location}`, sort: '2', limit: '40', radius_filter: '1609.34' })
