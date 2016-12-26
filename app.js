@@ -39,7 +39,8 @@ app.post('/', function (req, res) {
       var rand = businesses[Math.floor(Math.random() * businesses.length)];
       name = rand.name;
       url = rand.url;
-      if (rand.location.neighborhoods.length == 0 ) {
+
+      if (rand.location.neighborhoods == "undefined") {
         city = rand.location.city;
       } else {
         city = rand.location.neighborhoods[0];
