@@ -46,16 +46,14 @@ app.post('/', function (req, res) {
       });
     } else {
       response_json = JSON.stringify({
-        "response_type": "in_channel",
-        "text": "You want to eat " + cuisine + " in or around the location: " + location  + "\nThere are no restaurants that meet your criteria."
+        "text": "There are no restaurants that meet your criteria."
       })
     };
     res.end(response_json);
   })
   .catch((err) => {
     response_json = JSON.stringify({
-      "response_type": "in_channel",
-      "text": "You want to eat " + cuisine + " in or around the location: " + location  + "\nThere was an error."
+      "text": "There was an error."
     })
     res.end(response_json);
   });
