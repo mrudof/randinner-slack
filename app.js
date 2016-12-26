@@ -42,7 +42,7 @@ app.post('/', function (req, res) {
       city = rand.location.city
       response_json = JSON.stringify({
         "response_type": "in_channel",
-        "text": "You want to eat " + cuisine + " in or around the location: " + city + "\nWhy not try: <"+ url +"|" + name + ">?"
+        "text": "You want to eat " + cuisine + " in or around the zip code: " + location  + "\nWhy not try: <"+ url +"|" + name + "> in " + city + "?"
       });
     } else {
       response_json = JSON.stringify({
