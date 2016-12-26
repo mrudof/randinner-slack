@@ -45,12 +45,11 @@ app.post('/', function (req, res) {
       "response_type": "in_channel",
       "text": "You want to eat " + cuisine + " in or around the location: " + location  + "\nWhy not try: " + name + "?" + url
     })
+    res.end(response_json);
   })
   .catch((err) => {
     console.error(err);
   });
-
-  res.end(response_json);
 })
 
 var server = app.listen(process.env.PORT, function () {
