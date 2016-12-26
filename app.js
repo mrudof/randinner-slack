@@ -41,6 +41,11 @@ app.post('/', function (req, res) {
         "text": "Please provide a valid zip code."
       });
      res.end(response_json);
+  } else if (cuisine.trim().length == 0) {
+    response_json = JSON.stringify({
+      "text": "Please provide a cuisine."
+    });
+    res.end(response_json);
   }
 
   yelp.search({ term: `${cuisine}`, location: `${location}`, sort: '2', limit: '40', category_filter: 'restaurants'})
