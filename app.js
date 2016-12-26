@@ -39,7 +39,11 @@ app.post('/', function (req, res) {
       var rand = businesses[Math.floor(Math.random() * businesses.length)];
       name = rand.name;
       url = rand.url;
-      city = rand.location.neighborhoods[0] || rand.location.city;
+      if (rand.location.neighborhoods[0] == null ) {
+        city = rand.location.city;
+      } else {
+        city = rand.location.neighborhoods[0];
+      };
       response_json = JSON.stringify({
         "response_type": "in_channel",
         "text": "You want to eat " + cuisine + " in or around the zip code: " + location  + "\nWhy not try <"+ url +"|" + name + "> in " + city + "?"
