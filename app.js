@@ -28,7 +28,7 @@ app.post('/', function (req, res) {
   console.log(slackBody);
 
   var text = slackBody.text.split(" ");
-  var cuisine = text.slice(0,text.length - 2).join(" ");
+  var cuisine = text.slice(0,text.length - 1).join(" ");
   var location = text[text.length - 1];
   var name, url, rating;
 
