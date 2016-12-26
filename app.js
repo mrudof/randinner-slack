@@ -35,20 +35,30 @@ app.post('/', function (req, res) {
   yelp.search({ term: `${cuisine}`, location: `${location}`, sort: '2', limit: '40', radius_filter: '1609.34' })
     .then((data) => {
     var businesses = data.businesses;
-    var rand = businesses[Math.floor(Math.random() * businesses.length)];
-    name = rand.name;
-    url = rand.url;
-    rating = rand.rating;
-    console.log(name)
-    console.log("second name:" + name);
-    response_json = JSON.stringify({
-      "response_type": "in_channel",
-      "text": "You want to eat " + cuisine + " in or around the location: " + location  + "\nWhy not try: <"+ url +"|" + name + ">?"
-    })
+    if (businesses.length > 0) {
+      var rand = businesses[Math.floor(Math.random() * businesses.length)];
+      name = rand.name;
+      url = rand.url;
+      rating = rand.rating;
+      response_json = JSON.stringify({
+        "response_type": "in_channel",
+        "text": "You want to eat " + cuisine + " in or around the location: " + location  + "\nWhy not try: <"+ url +"|" + name + ">?"
+      });
+    } else {
+      response_json = JSON.stringify({
+        "response_type": "in_channel",
+        "text": "You want to eat " + cuisine + " in or around the location: " + location  + "\nThere are no restaurants that meet your criteria."
+      });
+    };
     res.end(response_json);
+    }
   })
   .catch((err) => {
-    console.error(err);
+    response_json = JSON.stringify({
+      "response_type": "in_channel",
+      "text": "You want to eat " + cuisine + " in or around the location: " + location  + "\nThere was an error."
+    })
+    res.end(response_json);
   });
 })
 
