@@ -43,7 +43,7 @@ app.post('/', function (req, res) {
     console.log("second name:" + name);
     response_json = JSON.stringify({
       "response_type": "in_channel",
-      "text": "You want to eat " + cuisine + " in or around the location: " + location  + "\nWhy not try: <a href=\""+ url +"\">" + name + "</a>?"
+      "text": "You want to eat " + cuisine + " in or around the location: " + location  + "\nWhy not try: <"+ url +"|" + name + ">?"
     })
     res.end(response_json);
   })
