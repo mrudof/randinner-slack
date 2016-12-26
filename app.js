@@ -32,7 +32,7 @@ app.post('/', function (req, res) {
   var location = text[text.length - 1];
   var name, url, rating;
 
-  yelp.search({ term: `${cuisine}`, location: `${location}`, sort: '2', limit: '40', radius_filter: '3000' })
+  yelp.search({ term: `${cuisine}`, location: `${location}`, sort: '2', limit: '40', radius_filter: '3000', category_filter: 'restaurants'})
     .then((data) => {
     var businesses = data.businesses;
     if (businesses.length > 0) {
