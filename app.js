@@ -14,6 +14,10 @@ var yelp = new Yelp({
   token_secret: process.env.YELP_TOKEN_SECRET,
 });
 
+function isValidUSZip(sZip) {
+  return /^\d{5}(-\d{4})?$/.test(sZip);
+}
+
 app.all('*', function(req, res, next) {
   res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Methods', 'GET, POST, DELETE, OPTIONS');
@@ -32,6 +36,13 @@ app.post('/', function (req, res) {
   var location = text[text.length - 1];
   var name, url, city;
 
+  if (!isValidUSZip(location)) {
+     response_json = JSON.stringify({
+        "text": "Please provide a valid zip code."
+      });
+     res.end(response_json);
+  }
+
   yelp.search({ term: `${cuisine}`, location: `${location}`, sort: '2', limit: '40', radius_filter: '3000', category_filter: 'restaurants'})
     .then((data) => {
     var businesses = data.businesses;
@@ -39,7 +50,6 @@ app.post('/', function (req, res) {
       var rand = businesses[Math.floor(Math.random() * businesses.length)];
       name = rand.name;
       url = rand.url;
-      console.log(rand.location)
       if (rand.location.neighborhoods === undefined) {
         city = rand.location.city;
       } else {
