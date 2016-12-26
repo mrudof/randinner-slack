@@ -40,7 +40,7 @@ app.post('/', function (req, res) {
       name = rand.name;
       url = rand.url;
       console.log(rand.location.neighborhoods)
-      if (rand.location.neighborhoods == "undefined") {
+      if (rand.location.neighborhoods[0] == "undefined") {
         city = rand.location.city;
       } else {
         city = rand.location.neighborhoods[0];
