@@ -30,13 +30,10 @@ app.post('/', function (req, res) {
   var text = slackBody.text.split(" ");
   var cuisine = text[0];
   var location = text.slice(1,text.length).join(" ");
+  var name, url, rating;
 
-
-  res.end(response_json);
-  next();
-}, yelp.search({ term: `${cuisine}`, location: `${location}`, sort: '2', limit: '40', radius_filter: '1609.34' })
+  yelp.search({ term: `${cuisine}`, location: `${location}`, sort: '2', limit: '40', radius_filter: '1609.34' })
     .then((data) => {
-    var name, url, rating;
     var businesses = data.businesses;
     var rand = businesses[Math.floor(Math.random() * businesses.length)];
     name = rand.name;
@@ -52,7 +49,9 @@ app.post('/', function (req, res) {
   .catch((err) => {
     console.error(err);
   });
-);
+
+  res.end(response_json);
+})
 
 var server = app.listen(process.env.PORT, function () {
   var host = server.address().address
