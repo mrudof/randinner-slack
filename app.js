@@ -30,7 +30,7 @@ app.post('/', function (req, res) {
   var text = slackBody.text.split(" ");
   var cuisine = text.slice(0,text.length - 1).join(" ");
   var location = text[text.length - 1];
-  var name, url, rating;
+  var name, url, city;
 
   yelp.search({ term: `${cuisine}`, location: `${location}`, sort: '2', limit: '40', radius_filter: '3000', category_filter: 'restaurants'})
     .then((data) => {
@@ -39,10 +39,10 @@ app.post('/', function (req, res) {
       var rand = businesses[Math.floor(Math.random() * businesses.length)];
       name = rand.name;
       url = rand.url;
-      rating = rand.rating;
+      city = rand.location.city
       response_json = JSON.stringify({
         "response_type": "in_channel",
-        "text": "You want to eat " + cuisine + " in or around the location: " + location  + "\nWhy not try: <"+ url +"|" + name + ">?"
+        "text": "You want to eat " + cuisine + " in or around the location: " + city + "\nWhy not try: <"+ url +"|" + name + ">?"
       });
     } else {
       response_json = JSON.stringify({
